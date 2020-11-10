@@ -31,6 +31,7 @@ class _WeatherAppState extends State<WeatherApp> {
   bool isSwitched=false;
    Color darkTheme = Colors.black;
    Color Background= Color(0xFFe3e3e3);
+   Color moon=null;
 
   @override
   void initState(){
@@ -59,6 +60,12 @@ class _WeatherAppState extends State<WeatherApp> {
       icon = weatherData['weather'][0]['icon'];
       cityName = weatherData['name'];
       description=weatherData['weather'][0]['description'];
+      if(icon=='01n'){
+        moon=Color(0xFFc0c0c5);
+      }
+      else{
+        moon=null;
+      }
     });
 
 
@@ -87,6 +94,12 @@ class _WeatherAppState extends State<WeatherApp> {
           icon = weatherData['weather'][0]['icon'];
           cityName = weatherData['name'];
           description = weatherData['weather'][0]['description'];
+          if(icon=='01n'){
+            moon=Color(0xFFc0c0f0);
+          }
+          else{
+            moon=null;
+          }
         });
       }
       else {
@@ -117,7 +130,9 @@ class _WeatherAppState extends State<WeatherApp> {
                 Column(
                   children: <Widget>[
                     Container(
-                      child: Image.network('http://openweathermap.org/img/wn/$icon@2x.png',),
+                      child: Image.network('http://openweathermap.org/img/wn/$icon@2x.png',
+                      color: moon,
+                      ),
                     ),
                     Center(
                       child: Text(
@@ -203,6 +218,8 @@ class _WeatherAppState extends State<WeatherApp> {
                       ],
                     ),
                     Switch(
+                      activeColor: Color(0xFFe3e3e3),
+                      inactiveThumbColor: Colors.black,
                       value: isSwitched,
                       onChanged: (value){
                         setState(() {
