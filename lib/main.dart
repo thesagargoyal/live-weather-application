@@ -213,7 +213,7 @@ class _WeatherAppState extends State<WeatherApp> {
                           }
                           else{
                             Background=Colors.black;
-                            darkTheme=Colors.white;
+                            darkTheme=Color(0xFFe3e3e3);
                           }
                           print(isSwitched);
                         });
