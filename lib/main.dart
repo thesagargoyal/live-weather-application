@@ -61,7 +61,7 @@ class _WeatherAppState extends State<WeatherApp> {
       cityName = weatherData['name'];
       description=weatherData['weather'][0]['description'];
       if(icon=='01n'){
-        moon=Color(0xFFc0c0c5);
+        moon=Color(0xFFc0c0c0);
       }
       else{
         moon=null;
@@ -95,7 +95,7 @@ class _WeatherAppState extends State<WeatherApp> {
           cityName = weatherData['name'];
           description = weatherData['weather'][0]['description'];
           if(icon=='01n'){
-            moon=Color(0xFFc0c0f0);
+            moon=Color(0xFFc0c0c0);
           }
           else{
             moon=null;
