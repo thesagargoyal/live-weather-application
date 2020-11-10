@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:geolocator/geolocator.dart';
 import 'package:live_weather_data/CurrentCity.dart';
 import 'package:live_weather_data/DifferentCity.dart';
 import 'location.dart';
@@ -69,37 +66,36 @@ class _WeatherAppState extends State<WeatherApp> {
 
   void updateUI2(String city) async{
 
-
     if(city==null){
       setState(() {
         icon='10d';
         cityName ="You have not entered any city...";
         temperature=0;
-      });
-      return;
-    }
-
-
-    DifferentCityNetwork helper2=DifferentCityNetwork(url:'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey&units=metric');
-    var weatherData=await helper2.getData();
-    print(weatherData);
-
-    if(weatherData!=null) {
-      setState(() {
-        temperature = weatherData['main']['temp'].toDouble();
-        icon = weatherData['weather'][0]['icon'];
-        cityName = weatherData['name'];
-        description=weatherData['weather'][0]['description'];
-
-      });
-    }
-    else{
-      setState(() {
-        temperature=0;
-        cityName="You have entered wrong city";
+        description="";
       });
     }
 
+    else {
+      DifferentCityNetwork helper2 = DifferentCityNetwork(
+          url: 'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey&units=metric');
+      var weatherData = await helper2.getData();
+      print(weatherData);
+
+      if (weatherData != null) {
+        setState(() {
+          temperature = weatherData['main']['temp'].toDouble();
+          icon = weatherData['weather'][0]['icon'];
+          cityName = weatherData['name'];
+          description = weatherData['weather'][0]['description'];
+        });
+      }
+      else {
+        setState(() {
+          temperature = 0;
+          cityName = "You have entered wrong city";
+        });
+      }
+    }
   }
 
 
