@@ -31,6 +31,9 @@ class _WeatherAppState extends State<WeatherApp> {
   String weatherIcon;
   String cityName="Error";
   String icon='10d';
+  bool isSwitched=false;
+   Color darkTheme = Colors.black;
+   Color Background= Color(0xFFe3e3e3);
 
   @override
   void initState(){
@@ -110,7 +113,7 @@ class _WeatherAppState extends State<WeatherApp> {
       debugShowCheckedModeBanner: false,
       home: Container(
           child: Scaffold(
-            backgroundColor: Color(0xFFe3e3e3),
+            backgroundColor: Background,
             body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -124,14 +127,14 @@ class _WeatherAppState extends State<WeatherApp> {
                       child: Text(
                         temperature.toInt().toString() + ' °C',
                         style: TextStyle(
-                            color: Colors.black, fontSize: 60.0),
+                            color: darkTheme, fontSize: 60.0),
                       ),
                     ),
                     Center(
                       child: Text(
                         description,
                         style: TextStyle(
-                          color: Colors.black,
+                          color: darkTheme,
                           fontSize: 30,
                         ),
                       ),
@@ -143,7 +146,7 @@ class _WeatherAppState extends State<WeatherApp> {
                       child: Text(
                         cityName,
                         style: TextStyle(
-                            color: Colors.black, fontSize: 40.0),
+                            color: darkTheme, fontSize: 40.0),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -155,13 +158,13 @@ class _WeatherAppState extends State<WeatherApp> {
                       width: 300,
                       child: TextField(
                         style:
-                        TextStyle(color: Colors.black, fontSize: 25),
+                        TextStyle(color: darkTheme, fontSize: 25),
                         decoration: InputDecoration(
                           hintText: 'Search another location...',
                           hintStyle: TextStyle(
-                              color: Colors.black, fontSize: 18.0),
+                              color: darkTheme, fontSize: 18.0),
                           prefixIcon:
-                          Icon(Icons.search, color: Colors.black),
+                          Icon(Icons.search, color: darkTheme),
                         ),
                         onSubmitted: (value){
                           updateUI2(value);
@@ -184,7 +187,7 @@ class _WeatherAppState extends State<WeatherApp> {
                           child: Text(
                             'Get Weather',
                             style: TextStyle(
-                              color: Colors.black,
+                              color: darkTheme,
                               fontSize: 20.0,
                             ),
                           ),
@@ -196,15 +199,29 @@ class _WeatherAppState extends State<WeatherApp> {
                           child: Text(
                             'Reload Weather',
                             style: TextStyle(
-                              color: Colors.black,
+                              color: darkTheme,
                               fontSize: 20.0,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 30,
+                    Switch(
+                      value: isSwitched,
+                      onChanged: (value){
+                        setState(() {
+                          isSwitched=value;
+                          if(isSwitched==false){
+                            Background=Color(0xFFe3e3e3);
+                            darkTheme=Colors.black;
+                          }
+                          else{
+                            Background=Colors.black;
+                            darkTheme=Colors.white;
+                          }
+                          print(isSwitched);
+                        });
+                      },
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -212,11 +229,12 @@ class _WeatherAppState extends State<WeatherApp> {
                         Image.asset('images/git.png',
                           height: 30,
                           width: 30,
+                          color: darkTheme,
                         ),
                         Text(
                           "thesagargoyal",
                           style: TextStyle(
-                            color: Colors.black,
+                            color: darkTheme,
                             fontSize: 20,
                           ),
                         ),
